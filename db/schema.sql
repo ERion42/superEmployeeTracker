@@ -7,7 +7,7 @@ USE myCompanyEmployees_db;
 -- Create Department Table
 CREATE TABLE department (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    name VARCHAR(30) NOT NULL,
+    name VARCHAR(30) NOT NULL
 );
 
 -- Create Role Table
@@ -25,7 +25,7 @@ CREATE TABLE employee (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     manager_id INT UNSIGNED,
-    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL -- If manager is deleted, this gets marked as NULL
-    role_id INT UNSIGNED NOT NULL,
-    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCASDE -- When the role is eliminated, delete the employee
-)
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL, -- If manager is deleted, this gets marked as NULL
+    role_id INT UNSIGNED,
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE -- When the role is eliminated, delete the employee
+);

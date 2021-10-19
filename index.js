@@ -17,7 +17,7 @@ const connection = mysql.createConnection({
 
 // Prompt
 function initialPrompt() {
-    inquierer.prompt([
+    inquirer.prompt([
         {
             type: "list",
             message: "Command:",
@@ -31,7 +31,17 @@ function initialPrompt() {
                 "Update an Employee Role",
             ]
         }
-    ])
+    ]).then (
+        response => {
+            let userChoice = response.choice;
+            switch (choice) {
+                case "View All Employees":
+                    // viewAllEmployees();
+                    console.table(connection.query ("SELECT * FROM myCompanyEmployees_db"));
+                    break;
+            }
+        }
+    )
         
     
 }
