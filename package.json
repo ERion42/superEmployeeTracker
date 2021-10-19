@@ -1,0 +1,7 @@
+// Installation file for Super-Employee Tracker!
+{
+    "name": "Super Employee Tracker",
+    "version": "0.0.1",
+    "description": "An app that tracks employees for a company",
+    "main": "index.js"
+  }
