@@ -17,7 +17,18 @@ function initialPrompt() {
     inquierer.prompt([
         {
             type: "list",
-            message: "W"
+            message: "Command:",
+            choices: [
+                "View All Departments",
+                "View All Roles",
+                "View All Employees",
+                "Add a Department",
+                "Add a Role",
+                "Add an Employee",
+                "Update an Employee Role",
+            ]
         }
     ])
+        
+    
 }
