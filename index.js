@@ -1,6 +1,6 @@
 // Set Dependencies
 const inquirer = require("inquirer");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cTable = require("console.table");
 
 
@@ -8,8 +8,11 @@ const cTable = require("console.table");
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    database: ''
-});
+    password: 'Root1234',
+    database: 'myCompanyEmployees_db'
+    },
+    console.log(`Connected to the company database.`)
+);
 
 
 // Prompt
