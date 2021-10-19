@@ -21,6 +21,7 @@ function initialPrompt() {
         {
             type: "list",
             message: "Command:",
+            name: "choice",
             choices: [
                 "View All Departments",
                 "View All Roles",
@@ -32,16 +33,43 @@ function initialPrompt() {
             ]
         }
     ]).then (
-        response => {
+        (response) => {
             let userChoice = response.choice;
-            switch (choice) {
+            console.log(userChoice);
+            switch (userChoice) {
+                case "View All Departments":
+                    viewDepartments();
+                    break;
+                case "View All Roles":
+                    viewRoles();
+                    break;
                 case "View All Employees":
-                    // viewAllEmployees();
-                    console.table(connection.query ("SELECT * FROM myCompanyEmployees_db"));
+                    viewEmployees();
+                    break;
+                case "Add a Department":
+                    viewDepartment();
+                    break;
+                case "Add a Role":
+                    addRole();
+                    break;
+                case "Add an Employee":
+                    addEmployee();
+                    break;
+                case "Update an Employee Role":
+                    updateEmployeeRole();
                     break;
             }
         }
-    )
+    ).catch(err => { console.log(err) });
         
-    
 }
+
+function viewDepartments() {
+    const query = 'SELECT * from department';
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.table('All Departments: ', res);
+    })
+}
+
+initialPrompt();
