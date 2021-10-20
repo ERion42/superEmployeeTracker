@@ -47,7 +47,7 @@ function initialPrompt() {
                     viewEmployees();
                     break;
                 case "Add a Department":
-                    viewDepartment();
+                    addDepartment();
                     break;
                 case "Add a Role":
                     addRole();
@@ -64,13 +64,14 @@ function initialPrompt() {
         
 }
 
+// Below are the functions from the initial prompt above-
 function viewDepartments() {
     const query = 'SELECT * from department';
     connection.query(query, function(err, res) {
         if (err) throw err;
         console.table('Departments: ', res);
     })
-}
+};
 
 function viewRoles() {
     const query = "SELECT * from role";
@@ -78,7 +79,7 @@ function viewRoles() {
         if (err) throw err;
         console.table('Roles: ', res);
     })
-}
+};
 
 function viewEmployees() {
     const query = "SELECT * from employee";
@@ -86,6 +87,92 @@ function viewEmployees() {
         if (err) throw err;
         console.table('Employees: ', res);
     })
-}
+};
+
+function addDepartment() {
+    inquirer.prompt([
+        {
+            name: "addDepartment",
+            type: "input",
+            message: "Department Name: "
+        }
+    ]).then(function (answer) {
+        connection.query(
+            "INSERT INTO department SET ?",
+            {
+                name: answer.addDepartment
+            });
+            const query = 'SELECT * from department';
+            connection.query(query, function(err, res) {
+                if (err) throw err;
+                console.table('Departments: ', res);
+            })
+    })
+};
+
+function addRole() {
+    inquirer.prompt([
+        {
+            name: "newRole",
+            type: "input",
+            message: "Name of Role: ",
+        },
+        {
+            name: "salary",
+            type: "input",
+            message: "Starting Salary: ",
+        },
+        {
+            name: "Department",
+            type: "list",
+            choices: ["choice 1", "choice 2"],
+            message: "Input department: ",
+        },
+    ])
+};
+
+function addEmployee() {
+    inquirer.prompt([
+        {
+            name: "fName",
+            type: "input",
+            message: "First Name: ",
+        },
+        {
+            name: "lName",
+            type: "input",
+            message: "Last Name",
+        },
+        {
+            name: "managerID",
+            type: "input",
+            message: "Manager's ID:",
+        },
+        {
+            name: "managerID",
+            type: "input",
+            message: "Manager's ID:",
+        },
+        {
+            name: "employeeRole",
+            type: "list",
+            choices: ["Option 1", "Option 2"],
+            message: "Employee's Role: ",
+        },
+        
+    ])
+};
+
+function updateEmployeeRole() {
+    inquirer.prompt([
+        {
+            name: "userChoice",
+            type: "list",
+            choices: ["choice 1, choice 2"],    
+            message: "Which employee would you like to update?"
+        }
+    ])
+};
+
 
 initialPrompt();
