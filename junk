@@ -1,0 +1,10 @@
+                // run a for loop that lists off each of the departments
+                connection.promise().query('SELECT role.title FROM role')
+                .then( ([results, fields]) => {
+                    const rolesArray = [];
+                    for (let i=0; i<results.length; i++) {
+                        rolesArray.push(results[i].title);
+                        console.log(rolesArray[i]);
+                    }
+                    return rolesArray;
+                }).catch(err => { console.log(err) });

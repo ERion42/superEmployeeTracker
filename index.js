@@ -30,6 +30,7 @@ function initialPrompt() {
                 "Add a Role",
                 "Add an Employee",
                 "Update an Employee Role",
+                "Exit",
             ]
         }
     ]).then (
@@ -57,6 +58,9 @@ function initialPrompt() {
                     break;
                 case "Update an Employee Role":
                     updateEmployeeRole();
+                    break;
+                case "Exit":
+                    endProgram();
                     break;
             }
         }
@@ -110,7 +114,8 @@ function addDepartment() {
                 if (err) throw err;
                 console.table('Departments: ', res);
             })
-    })
+    }).catch(err => { console.log(err) });
+    // then INSERT into database?
 };
 
 function addRole() {
@@ -121,17 +126,31 @@ function addRole() {
             message: "Name of Role: ",
         },
         {
-            name: "salary",
+            name: "newSalary",
             type: "input",
             message: "Starting Salary: ",
         },
         {
-            name: "Department",
-            type: "list",
-            choices: ["choice 1", "choice 2"],
+            // Right now the user is just asked to input the department number. 
+            // Later iterations should use a for loop to list all available departments and their numbers
+            name: "newDepartment",
+            type: "input",
             message: "Input department: ",
         },
-    ])
+    ]).then(function (answer) {
+        connection.query(
+            "INSERT INTO role SET ?",
+            {
+                title: answer.newRole,
+                salary: answer.newSalary,
+                department_id: answer.newDepartment,
+            });
+            const query = 'SELECT * FROM role';
+            connection.query(query, function(err, res) {
+                if (err) throw err;
+                console.table('Roles: ', res);
+            })
+    }).catch(err => { console.log(err) });
 };
 
 function addEmployee() {
@@ -162,20 +181,48 @@ function addEmployee() {
             choices: ["Option 1", "Option 2"],
             message: "Employee's Role: ",
         },
-        
     ])
+    // Then INSERT choices into database?
 };
 
 function updateEmployeeRole() {
+    // Placeholder- this isn't quite working
     inquirer.prompt([
         {
             name: "userChoice",
             type: "list",
-            choices: ["choice 1, choice 2"],    
+            choices: ["choice 1","choice 2"],    
             message: "Which employee would you like to update?"
         }
     ])
+    // Then INSERT choices into database?
 };
 
+function endProgram() {
+    // Signage, then close program
+    console.log(`
+       ~~~~~~~~~~~
+      |   Thank   |
+      |    You    |
+      |  GOODBYE! |
+       ~~~~~~~~~~~
+    `)
+    return;
+}
+
+function initialize() {
+    // Just a little signage, then run the initial prompt
+    console.log(`
+    ~~~~~~~~~~~~~~~~
+   |     SUPER      |
+   |    EMPLOYEE    |
+   |    TRACKER     |
+    ~~~~~~~~~~~~~~~~
+    `);
+    initialPrompt();
+
+
+}
+
 // run the program
-initialPrompt();
+initialize();
