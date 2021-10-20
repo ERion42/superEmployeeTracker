@@ -65,6 +65,7 @@ function initialPrompt() {
 }
 
 // Below are the functions from the initial prompt above-
+// "View" functions are simple enough- they just display tables of the requested information
 function viewDepartments() {
     const query = 'SELECT * from department';
     connection.query(query, function(err, res) {
@@ -89,6 +90,8 @@ function viewEmployees() {
     })
 };
 
+// The add functions get a bit trickier
+// The function requests input, then INSERTS the data into the appropriate table via a query
 function addDepartment() {
     inquirer.prompt([
         {
@@ -174,5 +177,5 @@ function updateEmployeeRole() {
     ])
 };
 
-
+// run the program
 initialPrompt();
