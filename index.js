@@ -68,7 +68,23 @@ function viewDepartments() {
     const query = 'SELECT * from department';
     connection.query(query, function(err, res) {
         if (err) throw err;
-        console.table('All Departments: ', res);
+        console.table('Departments: ', res);
+    })
+}
+
+function viewRoles() {
+    const query = "SELECT * from role";
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.table('Roles: ', res);
+    })
+}
+
+function viewEmployees() {
+    const query = "SELECT * from employee";
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.table('Employees: ', res);
     })
 }
 
