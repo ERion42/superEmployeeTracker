@@ -71,6 +71,9 @@ function initialPrompt() {
 // Below are the functions from the initial prompt above-
 // "View" functions are simple enough- they just display tables of the requested information
 function viewDepartments() {
+    console.log(`
+    
+    `);
     const query = 'SELECT * from department';
     connection.query(query, function(err, res) {
         if (err) throw err;
@@ -178,18 +181,26 @@ function addEmployee() {
             message: "Manager's ID:",
         },
         {
-            name: "managerID",
-            type: "input",
-            message: "Manager's ID:",
-        },
-        {
             name: "employeeRole",
-            type: "list",
-            choices: ["Option 1", "Option 2"],
-            message: "Employee's Role: ",
+            type: "input",
+            message: "Employee's Role ID: ",
         },
-    ])
-    // Then INSERT choices into database?
+    ]).then(function (answer) {
+        connection.query(
+            "INSERT INTO employee SET ?",
+            {
+                first_name: answer.fName,
+                last_name: answer.lName,
+                manager_id: answer.managerID,
+                role_id: answer.employeeRole,
+            });
+            const query = 'SELECT * FROM employee';
+            connection.query(query, function(err, res) {
+                if (err) throw err;
+                console.table('Employees: ', res);
+                whatNext();
+            })
+    }).catch(err => { console.log(err) });
 };
 
 function updateEmployeeRole() {
@@ -198,10 +209,12 @@ function updateEmployeeRole() {
         {
             name: "userChoice",
             type: "list",
-            choices: ["choice 1","choice 2"],    
-            message: "Which employee would you like to update?"
+            choices: ["continue..."],    
+            message: "This feature is coming soon"
         }
-    ])
+    ]).then(function (answer) {
+        whatNext();
+    })
     // Then INSERT choices into database?
 };
 
