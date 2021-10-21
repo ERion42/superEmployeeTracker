@@ -75,7 +75,9 @@ function viewDepartments() {
     connection.query(query, function(err, res) {
         if (err) throw err;
         console.table('Departments: ', res);
-    })
+        whatNext();
+    });
+    
 };
 
 function viewRoles() {
@@ -83,6 +85,7 @@ function viewRoles() {
     connection.query(query, function(err, res) {
         if (err) throw err;
         console.table('Roles: ', res);
+        whatNext();
     })
 };
 
@@ -91,6 +94,7 @@ function viewEmployees() {
     connection.query(query, function(err, res) {
         if (err) throw err;
         console.table('Employees: ', res);
+        whatNext();
     })
 };
 
@@ -113,8 +117,10 @@ function addDepartment() {
             connection.query(query, function(err, res) {
                 if (err) throw err;
                 console.table('Departments: ', res);
-            })
+                whatNext();
+            });
     }).catch(err => { console.log(err) });
+    
     // then INSERT into database?
 };
 
@@ -149,6 +155,7 @@ function addRole() {
             connection.query(query, function(err, res) {
                 if (err) throw err;
                 console.table('Roles: ', res);
+                whatNext();
             })
     }).catch(err => { console.log(err) });
 };
@@ -206,8 +213,28 @@ function endProgram() {
       |    You    |
       |  GOODBYE! |
        ~~~~~~~~~~~
-    `)
-    return;
+    `);
+    connection.end();    
+}
+
+function whatNext() {
+    inquirer.prompt([
+        {
+            name: "continueYN",
+            type: "list",
+            choices: ["Main Menu","End Program"],
+            message: "Do you want to go back to the main menu, or end the program?"
+        }
+    ]).then(answers => {
+        switch(answers.continueYN) {
+            case "Main Menu":
+                initialPrompt();
+                break;
+            case "End Program":
+                endProgram();
+                break;
+        }
+        })
 }
 
 function initialize() {
@@ -220,8 +247,6 @@ function initialize() {
     ~~~~~~~~~~~~~~~~
     `);
     initialPrompt();
-
-
 }
 
 // run the program
