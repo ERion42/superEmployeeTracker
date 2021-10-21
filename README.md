@@ -20,12 +20,17 @@
   <a href="#installation"></a>
   ## Installation:
   
-  * Simply type ```npm i``` to install the dependencies, then in the command line type ```node index.js```.
+  * Simply type ```npm i``` to install the dependencies.
 
   <a href="#usage"></a>
   ## Usage: 
   
-  * Follow the prompts once you've run the index.js file. 
+  * Type ```npm start``` in the command line and follow the prompts. 
+  
+  ![Initializing](https://i.imgur.com/yF8Qr8V.gif)
+  ![Menu Part One](https://i.imgur.com/83ZmjQW.gif)
+  ![Menu Part Two](https://i.imgur.com/Y9a6oJa.gif)
+  
 
   <a href="#licenses"></a>
   ## Licenses:
