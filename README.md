@@ -16,6 +16,7 @@
   ## Description:
   
   * This is a command-line application that helps companies track their employee databases. It utilizes Node.js, Inquierer, and MySQL. 
+  * As time permits I will be making updates to make this a more fully realized utility. At present the main thing that needs to be added is a series of functions that modify the databases. The ability to rewrite roles, employees, and departments is necessary, as is the ability to remove those elements.
 
   <a href="#installation"></a>
   ## Installation:
@@ -31,6 +32,7 @@
   ![Menu Part One](https://i.imgur.com/83ZmjQW.gif)
   ![Menu Part Two](https://i.imgur.com/Y9a6oJa.gif)
   
+  Check out the demonstration video here: https://youtu.be/zr3v6WFtMrQ
 
   <a href="#licenses"></a>
   ## Licenses:
